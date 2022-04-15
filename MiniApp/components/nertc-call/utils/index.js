@@ -53,3 +53,14 @@ export const parseAttachExt = (attachExt) => {
     return false
   }
 }
+
+export const prevent = (fn, delay) => {
+	let last = 0
+	return function(...args) {
+	  const cur = Date.now()
+	  if (cur - last > delay) {
+		fn.apply(this, args);
+		last = cur;
+	  }
+	}
+}
